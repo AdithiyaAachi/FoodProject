@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% extends 'Index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card-body">
+                  <h2 class="card-title">Display Contact</h2>
+<!--                  <p class="card-description">-->
+<!--                    Add class <code>.table</code>-->
+<!--                  </p>-->
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th>Address</th>
+                          <th>Email</th>
+                          <th>City</th>
+                          <th>Country</th>
+                          <th>Telephone</th>
+                            <th>Deleting Option</th>
+                        </tr>
+                      {% for p in data %}
+                      <tr>
+
+                          <td>{{p.FirstName}}</td>
+                          <td>{{p.LastName}}</td>
+                          <td>{{p.Address}}</td>
+                          <td>{{p.EmailId}}</td>
+                          <td>{{p.City}}</td>
+                          <td>{{p.Country}}</td>
+                          <td>{{p.Telephone}}</td>
+                          <td>
+                              <form action="{% url 'delete_contact' dataid=p.id %}">
+                                  <button type="submit" class="btn btn-danger btn-sm btn btn-icon-text">Delete</button>
+                              </form>
+                          </td>
+                      </tr>
+                      {% endfor %}
+                      </thead>
+                      <tbody>
+<!--                        <tr>-->
+<!--                          <td>Jacob</td>-->
+<!--                          <td>53275531</td>-->
+<!--                          <td></td>-->
+<!--                          <td></td>-->
+<!--                        </tr>-->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+{% for i in messages %}
+{% if i.tags == 'warning' %}
+<script>
+  swal('{{i}}','','warning')
+</script>
+{% elif i.tags == 'error' %}
+<script>
+  swal('{{i}}','','error')
+</script>
+{% elif i.tags == 'success' %}
+<script>
+  swal('{{i}}','','success')
+</script>
+{% else %}
+<script>
+  swal('{{i}}','','info')
+</script>
+{% endif %}
+{% endfor %}
+{% endif %}
+
+</body>
+</html>
+{% endblock %}
